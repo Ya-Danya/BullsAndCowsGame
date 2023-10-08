@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  @apply mx-1 w-10 h-12 text-4xl;
+  border-radius: 10px;
+  color: black;
+}
