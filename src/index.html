@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../dist/out.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:wght@400;500;800&display=swap" rel="stylesheet">
   <title>B&C</title>
   <script src="./js/script.js"></script>
 </head>
@@ -11,24 +17,51 @@
   <header class="container flex justify-center mx-auto pb-5">
     <h1 class="text-4xl">BULLS & COWS</h1>
   </header>
-  <div class="w-auto">
-    <div class="container flex justify-center mx-auto w-1/4 p-2">
-      <input class="" placeholder="0" type="number" name="" id="first_num">
-      <input class="" placeholder="0" type="number" name="" id="second_num">
-      <input class="" placeholder="0" type="number" name="" id="third_num">
-      <input class="" placeholder="0" type="number" name="" id="fourth_num">
+
+  <div class="grid grid-cols-3">
+    <div class="shantell-sans">
+      <h3 class="font-extrabold text-3xl">Правила</h3>
+      <div class="text-2xl">
+        <div>
+          <p>Вы загадываете четырёхзначное число, состоящее из неповторяющихся цифр</p>
+        </div>
+        <div>
+          <p>Задача компьютера - угадать это число</p>
+        </div>
+        <div class="flex " style="align-items: start;">
+          <img src="/src/svgs/mdi_drop.svg" alt="">
+          <p>После того, как вы введете число компьютер, следуя алгоритму будет сообщать,
+            сколько коров (угаданные, но не расположенные на своих местах цифры) и
+            сколько быков (угаданные и расположенные на своих местах цифры) в числе</p>
+        </div>
+      </div>
     </div>
-    <div class="container flex justify-center mx-auto w-1/4 p-2">
-      <image class="w-1/6" id="first_out" src="">  </image>
-      <image class="w-1/6" id="second_out" src="">  </image>
-      <image class="w-1/6" id="third_out" src="">  </image>
-      <image class="w-1/6" id="fourth_out" src="">  </image>
+    <div>
+      <div class="w-auto">
+        <div class="container flex justify-center mx-auto w-1/4 p-2">
+          <input class="" placeholder="0" type="number" name="" id="first_num">
+          <input class="" placeholder="0" type="number" name="" id="second_num">
+          <input class="" placeholder="0" type="number" name="" id="third_num">
+          <input class="" placeholder="0" type="number" name="" id="fourth_num">
+        </div>
+        <div class="container flex justify-center mx-auto w-1/4 p-2">
+          <image class="w-1/6" id="first_out" src="">  </image>
+          <image class="w-1/6" id="second_out" src="">  </image>
+          <image class="w-1/6" id="third_out" src="">  </image>
+          <image class="w-1/6" id="fourth_out" src="">  </image>
+        </div>
+        <div class="container flex justify-center mx-auto w-1/4 p-2">
+          <button class="bg-slate-500 w-48 text-2xl" id="input_numb" onclick="" style="border-radius: 10px">
+            CHECK
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="container flex justify-center mx-auto w-1/4 p-2">
-      <button class="bg-slate-500 w-48" id="input_numb" onclick="" style="border-radius: 10px">
-        CHECK
-      </button>
+    <div>
+
     </div>
   </div>
+
+  
 </body>
 </html>

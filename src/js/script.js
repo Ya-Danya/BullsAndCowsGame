@@ -50,17 +50,18 @@ function compare() {
 
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 4; j++) {
-      if (input_num[i] == bulls[j]) {
+      if (Number(input_num[i]) == Number(bulls[j])) {
         if (i == j) {
           ans[i] = 2;
-          break;
         } else {
           ans[i] = 1;
         }
+        break;
       }
     }
   }
   console.log(ans);
+  printAns(ans);
 
   return(ans);
 }
@@ -93,6 +94,7 @@ function bullsNCows (secret) {
       cows_amount++;
     }
   }
+  console.info("Первая попытка: " + compares[0]);
 
   if (bulls_amount == 4) {
     console.info(ans);
@@ -114,6 +116,7 @@ function bullsNCows (secret) {
       cows_amount++;
     }
   }
+  console.info("Вторая попытка: " + compares[1]);
 
   if (bulls_amount == 4) {
     console.info(ans);
@@ -132,94 +135,94 @@ function bullsNCows (secret) {
   } else if (cows_amount == 3) {
     check = true;
   }
-  // Третяя попытка угадывания.
-  tries.add(new int[4]);
+  // // Третяя попытка угадывания.
+  // tries.add(new int[4]);
 
-  if (!check) {
-    tries[2][cows[1][1]] = cows[0][0];
-    tries[2][cows[0][1]] = cows[1][0];
+  // if (!check) {
+  //   tries[2][cows[1][1]] = cows[0][0];
+  //   tries[2][cows[0][1]] = cows[1][0];
     
-  } else {
+  // } else {
 
-  }
+  // }
 
-  for (let i = 0; i < 4; ++i) {
-    if (i != cows[0][1]) {
-      tries[2][i] = cows[0][0];
-    } else {
-      tries
-    }
-  }
+  // for (let i = 0; i < 4; ++i) {
+  //   if (i != cows[0][1]) {
+  //     tries[2][i] = cows[0][0];
+  //   } else {
+  //     tries
+  //   }
+  // }
 
-  // Формируем комбинацию.
+  // // Формируем комбинацию.
 
-  for (int i = 0; i < 4; i++) {
-      if (i != cows[0].get(1)) {
-          tries.get(2)[i] = cows[0].get(0);
-          cows[0].add(i);
-          cows_iterator++;
-      } else {
-          tries.get(2)[i] = cows[1].get(0);
-          cows[1].add(i);
-          cows_iterator++;
-      }
-  }
+  // for (int i = 0; i < 4; i++) {
+  //     if (i != cows[0].get(1)) {
+  //         tries.get(2)[i] = cows[0].get(0);
+  //         cows[0].add(i);
+  //         cows_iterator++;
+  //     } else {
+  //         tries.get(2)[i] = cows[1].get(0);
+  //         cows[1].add(i);
+  //         cows_iterator++;
+  //     }
+  // }
 
-  compares.add(new int[4]);
-  compares.set(2, compareArrs(secret, tries.get(2)));
+  // compares.add(new int[4]);
+  // compares.set(2, compareArrs(secret, tries.get(2)));
 
-  // Проверка на быков и коров.
-  for (int i = 0; i < 4; i++) {
-      if (compares.get(2)[i] == 2) {
-          ans[i] = tries.get(2)[i];
-          bulls_amount++;
-      } else if(tries.get(2)[i] == 1) {
-          cows[cows_amount] = new ArrayList<>();
-          cows[cows_amount].add(tries.get(2)[i]);
-          cows[cows_amount].add(i);
-          cows_amount++;
-      }
-  }
+  // // Проверка на быков и коров.
+  // for (int i = 0; i < 4; i++) {
+  //     if (compares.get(2)[i] == 2) {
+  //         ans[i] = tries.get(2)[i];
+  //         bulls_amount++;
+  //     } else if(tries.get(2)[i] == 1) {
+  //         cows[cows_amount] = new ArrayList<>();
+  //         cows[cows_amount].add(tries.get(2)[i]);
+  //         cows[cows_amount].add(i);
+  //         cows_amount++;
+  //     }
+  // }
 
-  if (bulls_amount == 4) {
-      printArr(ans);
-      return;
-  }
+  // if (bulls_amount == 4) {
+  //     printArr(ans);
+  //     return;
+  // }
 
-  // Четвертая попытка.
-  tries.add(new int[4]);
+  // // Четвертая попытка.
+  // tries.add(new int[4]);
 
-  for (int i = 0; i < 4; i++) {
-      if ((i == cows[1].get(1)) || (i == cows[1].get(2))) {
-          tries.get(3)[i] = cows[2].get(0);
-          cows[2].add(i);
-          cows_iterator++;
-      } else {
-          tries.get(3)[i] = cows[1].get(0);
-          cows[1].add(i);
-          cows_iterator++;
-      }
-  }
+  // for (int i = 0; i < 4; i++) {
+  //     if ((i == cows[1].get(1)) || (i == cows[1].get(2))) {
+  //         tries.get(3)[i] = cows[2].get(0);
+  //         cows[2].add(i);
+  //         cows_iterator++;
+  //     } else {
+  //         tries.get(3)[i] = cows[1].get(0);
+  //         cows[1].add(i);
+  //         cows_iterator++;
+  //     }
+  // }
 
-  compares.add(new int[4]);
-  compares.set(3, compareArrs(secret, tries.get(3)));
+  // compares.add(new int[4]);
+  // compares.set(3, compareArrs(secret, tries.get(3)));
 
-  for (int i = 0; i < 4; i++) {
-      if (compares.get(3)[i] == 2) {
-          ans[i] = tries.get(3)[i];
-          bulls_amount++;
-      } else if(tries.get(3)[i] == 1) {
-          cows[cows_amount] = new ArrayList<>();
-          cows[cows_amount].add(tries.get(3)[i]);
-          cows[cows_amount].add(i);
-          cows_amount++;
-      }
-  }
+  // for (int i = 0; i < 4; i++) {
+  //     if (compares.get(3)[i] == 2) {
+  //         ans[i] = tries.get(3)[i];
+  //         bulls_amount++;
+  //     } else if(tries.get(3)[i] == 1) {
+  //         cows[cows_amount] = new ArrayList<>();
+  //         cows[cows_amount].add(tries.get(3)[i]);
+  //         cows[cows_amount].add(i);
+  //         cows_amount++;
+  //     }
+  // }
 
-  if (bulls_amount == 4) {
-      printArr(ans);
-      return;
-  }
+  // if (bulls_amount == 4) {
+  //     printArr(ans);
+  //     return;
+  // }
 }
 
 
