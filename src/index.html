@@ -13,19 +13,21 @@
   <title>B&C</title>
   <script src="./js/script.js"></script>
 </head>
-<body class="bg-slate-800 text-white">
-  <header class="container flex justify-center mx-auto pb-5">
-    <h1 class="text-4xl">BULLS & COWS</h1>
+<body class="" background="/src/svgs/grass.svg">
+  <header class="container flex justify-center mx-auto">
+    
   </header>
 
-  <div class="grid grid-cols-3">
-    <div class="shantell-sans">
+  <div class="grid grid-cols-7">
+    <div class="shantell-sans ml-14 mt-14 col-span-2">
       <h3 class="font-extrabold text-3xl">Правила</h3>
       <div class="text-2xl">
-        <div>
+        <div class="flex " style="align-items: start;">
+          <img src="/src/svgs/mdi_drop.svg" alt="">
           <p>Вы загадываете четырёхзначное число, состоящее из неповторяющихся цифр</p>
         </div>
-        <div>
+        <div class="flex " style="align-items: start;">
+          <img src="/src/svgs/mdi_drop.svg" alt="">
           <p>Задача компьютера - угадать это число</p>
         </div>
         <div class="flex " style="align-items: start;">
@@ -36,29 +38,50 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="col-span-3 mt-28">
       <div class="w-auto">
-        <div class="container flex justify-center mx-auto w-1/4 p-2">
-          <input class="" placeholder="0" type="number" name="" id="first_num">
-          <input class="" placeholder="0" type="number" name="" id="second_num">
-          <input class="" placeholder="0" type="number" name="" id="third_num">
-          <input class="" placeholder="0" type="number" name="" id="fourth_num">
+        <div class="container flex justify-center mx-auto p-2">
+          <img src="/src/svgs/logo_cow.svg" alt="Bulls and Cows">
+        </div>
+        <div id="chat" class="dialog-window mx-48 my-3 text-2xl px-5 py-3 shantell-sans flex justify-center">
+          Введите число
+        </div>
+        <div class="container mx-auto w-1/4 p-2 grid grid-cols-4">
+          <div class="">
+            <input class="pl-1" placeholder="0" type="number" name="" id="first_num">
+            <image class="pr-1" id="first_out" src="">  </image>
+          </div>
+          <div class="">
+            <input class="pl-1" placeholder="0" type="number" name="" id="second_num">
+            <image class="pr-1" id="second_out" src="">  </image>
+          </div>
+          <div class="">
+            <input class="pl-1" placeholder="0" type="number" name="" id="third_num">
+            <image class="pr-1" id="third_out" src="">  </image>
+          </div>
+          <div class="">
+            <input class="pl-1" placeholder="0" type="number" name="" id="fourth_num">
+            <image class="pr-1" id="fourth_out" src="">  </image>
+          </div>
         </div>
         <div class="container flex justify-center mx-auto w-1/4 p-2">
-          <image class="w-1/6" id="first_out" src="">  </image>
-          <image class="w-1/6" id="second_out" src="">  </image>
-          <image class="w-1/6" id="third_out" src="">  </image>
-          <image class="w-1/6" id="fourth_out" src="">  </image>
         </div>
         <div class="container flex justify-center mx-auto w-1/4 p-2">
-          <button class="bg-slate-500 w-48 text-2xl" id="input_numb" onclick="" style="border-radius: 10px">
+          <button class="w-48 text-3xl py-2" id="input_numb" onclick="" style="border-radius: 10px">
             CHECK
           </button>
         </div>
       </div>
     </div>
-    <div>
-
+    <div></div>
+    <div class="shantell-sans col-span-1 mr-14 mt-14">
+      <h3 class="font-extrabold text-3xl"">Интересный факт</h3>
+      <div class="text-2xl">
+        <div class="flex " style="align-items: start;">
+          <img src="/src/svgs/mdi_drop.svg" alt="">
+          <p class="">Быки мало спят, потому что учатся на матобесе</p>
+        </div>
+      </div>
     </div>
   </div>
 

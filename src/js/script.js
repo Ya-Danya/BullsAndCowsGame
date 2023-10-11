@@ -41,10 +41,31 @@ function generateNumber() {
 function compare() {
   let input_num = new Array(4);
 
+  let chat = document.getElementById('chat');
+
   input_num[0] = document.getElementById('first_num').value;
+  if (Number(input_num[0]) < 0 || Number(input_num[0]) > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+    return;
+  }
+
   input_num[1] = document.getElementById('second_num').value;
+  if (Number(input_num[1]) < 0 || Number(input_num[0]) > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+    return;
+  }
   input_num[2] = document.getElementById('third_num').value;
+  if (Number(input_num[2]) < 0 || Number(input_num[0]) > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+    return;
+  }
   input_num[3] = document.getElementById('fourth_num').value;
+  if (Number(input_num[3]) < 0 || Number(input_num[0]) > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+    return;
+  }
+
+
 
   let ans = [0, 0, 0, 0];
 
@@ -60,6 +81,7 @@ function compare() {
       }
     }
   }
+  chat.textContent = 'Введите число.'
   console.log(ans);
   printAns(ans);
 
@@ -123,106 +145,87 @@ function bullsNCows (secret) {
     return;
   }
 
-  let check = false;
-
+  // Третяя попытка угадывания.
+  tries.push([-1, -1, -1, -1]);
+  // Расставляем цифры учитывая, что у нас 2 коровы
   if (cows_amount == 2) {
-    cows[cows_amount] = new Array();
-    cows[cows_amount].add(8);
-    cows_amount++;
-    cows[cows_amount] = new Array();
-    cows[cows_amount].add(9);
-    cows_amount++;
-  } else if (cows_amount == 3) {
-    check = true;
-  }
-  // // Третяя попытка угадывания.
-  // tries.add(new int[4]);
-
-  // if (!check) {
-  //   tries[2][cows[1][1]] = cows[0][0];
-  //   tries[2][cows[0][1]] = cows[1][0];
+    if (cows[1][1] != cows[0][1]) {
+      tries[2][cows[1][1]] = cows[0][0];
+      cows[0].push[cows[1][1]];
+      tries[2][cows[0][1]] = cows[1][0];
+      cows[1].push[cows[0][1]];
+    } else {
+      //
+      for (let i = 0; i < 4; ++i) {
+        if ((cows[0][1] != i)) {
+          tries[2][i] = cows[0][0];
+          cows[0].push[i];
+          for (let j = i; j < 4; ++j) {
+            if ((cows[1][1] != i)) {
+              tries[2][i] = cows[1][0];
+              cows[1].push[i];
+              break;
+            }
+          }
+          break;
+        }
+      }
+    }
     
-  // } else {
+    let cow_num = 8;
+    for (let i = 0; i < 4; i++) {
+      if (tries[2][i] == -1) {
+        tries[2][i] = cow_num++;
+        cows[cows_amount] = new Array();
+        cows[cows_amount].push(cow_num);
+        cows[cows_amount].push(i);
+        cows_amount++;
+      }
+    }
+  // Собираем комбинацию для трех коров
+  } else if (cows_amount == 3) {
+    let except_cow_number = -1;
+    if (cows[0][1] == cows[1][1]) {
+      tries[2][cows[0][1]] = cows[2][0];
+      cows[2].push(cows[0][1]);
+      except_cow_number = 2;
+    } else if (cows[0][1] == cows[2][1]) {
+      tries[2][cows[0][1]] = cows[1][0];
+      cows[1].push(cows[0][1])
+      except_cow_number = 1;
+    } else if (cows[1][1] == cows[2][1]) {
+      tries[2][cows[1][1]] = cows[0][0];
+      cows[0].push(cows[0][1]);
+      except_cow_number = 0;
+    } 
+    for (let i = 0; i < 3; ++i) {
+      if (except_cow_number == i) {
+        break;
+      } else {
+        for (let j = 0; j < 4; ++j) {
+          if ((tries[2][j] != -1) && (cows[i][1] != j)) {
+            tries[2][j] = cows[i][0];
+            cows[i].push(j);
+            break;
+          }
+        }
+      }
+      for (let i = 0; i < 4; ++i) {
+        if (tries[2][i] != 0) {
+          tries[2][i] = 8;
+        }
+      }
+    }
 
-  // }
-
-  // for (let i = 0; i < 4; ++i) {
-  //   if (i != cows[0][1]) {
-  //     tries[2][i] = cows[0][0];
-  //   } else {
-  //     tries
-  //   }
-  // }
-
-  // // Формируем комбинацию.
-
-  // for (int i = 0; i < 4; i++) {
-  //     if (i != cows[0].get(1)) {
-  //         tries.get(2)[i] = cows[0].get(0);
-  //         cows[0].add(i);
-  //         cows_iterator++;
-  //     } else {
-  //         tries.get(2)[i] = cows[1].get(0);
-  //         cows[1].add(i);
-  //         cows_iterator++;
-  //     }
-  // }
-
-  // compares.add(new int[4]);
-  // compares.set(2, compareArrs(secret, tries.get(2)));
-
-  // // Проверка на быков и коров.
-  // for (int i = 0; i < 4; i++) {
-  //     if (compares.get(2)[i] == 2) {
-  //         ans[i] = tries.get(2)[i];
-  //         bulls_amount++;
-  //     } else if(tries.get(2)[i] == 1) {
-  //         cows[cows_amount] = new ArrayList<>();
-  //         cows[cows_amount].add(tries.get(2)[i]);
-  //         cows[cows_amount].add(i);
-  //         cows_amount++;
-  //     }
-  // }
-
-  // if (bulls_amount == 4) {
-  //     printArr(ans);
-  //     return;
-  // }
-
-  // // Четвертая попытка.
-  // tries.add(new int[4]);
-
-  // for (int i = 0; i < 4; i++) {
-  //     if ((i == cows[1].get(1)) || (i == cows[1].get(2))) {
-  //         tries.get(3)[i] = cows[2].get(0);
-  //         cows[2].add(i);
-  //         cows_iterator++;
-  //     } else {
-  //         tries.get(3)[i] = cows[1].get(0);
-  //         cows[1].add(i);
-  //         cows_iterator++;
-  //     }
-  // }
-
-  // compares.add(new int[4]);
-  // compares.set(3, compareArrs(secret, tries.get(3)));
-
-  // for (int i = 0; i < 4; i++) {
-  //     if (compares.get(3)[i] == 2) {
-  //         ans[i] = tries.get(3)[i];
-  //         bulls_amount++;
-  //     } else if(tries.get(3)[i] == 1) {
-  //         cows[cows_amount] = new ArrayList<>();
-  //         cows[cows_amount].add(tries.get(3)[i]);
-  //         cows[cows_amount].add(i);
-  //         cows_amount++;
-  //     }
-  // }
-
-  // if (bulls_amount == 4) {
-  //     printArr(ans);
-  //     return;
-  // }
+  } else if (cows_amount == 4) {
+    for (let i = 0; i < 4; ++i) {
+      for (let j = 0; j < 4; ++j) {
+        if ((tries != -1)) {
+          tries[2][j] = cows[i][0];
+        }
+      }
+    }
+  }
 }
 
 

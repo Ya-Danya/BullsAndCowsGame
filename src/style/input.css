@@ -8,6 +8,24 @@ input {
   color: black;
 }
 
+body {
+  background: url("/src/svgs/grass.svg");
+  background-repeat: repeat-x;
+  background-position: bottom;
+  height: 100vh;
+}
+
+.dialog-window {
+  border-radius: 2.9375rem;
+  border: 2px solid #FCAB10;
+  background: #FFF1D6;
+}
+
+button {
+  font-family: 'Titan One', cursive;
+  background: #FCAB10;
+}
+
 .shantell-sans {
   font-family: 'Shantell Sans', cursive;
 }
