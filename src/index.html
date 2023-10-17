@@ -20,6 +20,13 @@
 
   <div class="grid grid-cols-7">
     <div class="shantell-sans ml-14 mt-14 col-span-2">
+      <div class="mb-10">
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input id="switcher" type="checkbox" value="" class="sr-only peer">
+          <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+          <span class="ml-3 text-sm font-medium ">Смена режима игры</span>
+        </label>
+      </div>
       <h3 class="font-extrabold text-3xl">Правила</h3>
       <div class="text-2xl">
         <div class="flex " style="align-items: start;">
@@ -36,6 +43,7 @@
             сколько коров (угаданные, но не расположенные на своих местах цифры) и
             сколько быков (угаданные и расположенные на своих местах цифры) в числе</p>
         </div>
+        
       </div>
     </div>
     <div class="col-span-3 mt-28">
@@ -46,7 +54,7 @@
         <div id="chat" class="dialog-window mx-48 my-3 text-2xl px-5 py-3 shantell-sans flex justify-center">
           Введите число
         </div>
-        <div class="container mx-auto w-1/4 p-2 grid grid-cols-4">
+        <div id="output" class="container mx-auto w-1/4 p-2 grid grid-cols-4">
           <div class="">
             <input class="pl-1" placeholder="0" type="number" name="" id="first_num">
             <image class="pr-1" id="first_out" src="">  </image>
