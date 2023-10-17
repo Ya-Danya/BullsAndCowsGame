@@ -312,14 +312,6 @@ function bullsNCows () {
     }
   }
 
-  if (bulls_amount + cows_amount == 3) {
-    for (let i = 0; i < 4; ++i) {
-
-    }
-  } 
-
-  
-
   printComputerTry(tries[2]);
   console.info("Третяя попытка: " + compares[2]);
   console.info(cows);
@@ -330,56 +322,80 @@ function bullsNCows () {
 
 
   // Формирование 4 попытки я задолбался и хочу спать)
-
-
-  tries.push(ans);
-
   if (cows_amount + bulls_amount == 3) {
+    tries.push(ans);
+    let tempo = new Array();
+
     for (let i = 0; i < 4; ++i) {
-      
+      if ((tries[2][i] != ans[0]) && (tries[2][i] != ans[1]) && (tries[2][i] != ans[2]) && (tries[2][i] != ans[0])) {
+        tempo.push(tries[2][i]);
+      }
+    }
+    for (let i = 0; i < 4; ++i) {
+      if (ans[i] = -1) {
+        tries[3][i] = tempo.shift();
+      }
+    }
+
+    for (let i = 0; i < 4; ++i) {
+      if (tries[3][i] == 8) {
+        tries[3][i] = 9;
+      }
     }
   } else {
-    tries[2];
-    for (let i = 0; i < 4 - bulls_amount; ++i) {
-      for (let j = 0; j < 4; ++j) {
-        if ((tries[2][j] != ans[0]) && (tries[2][j] != ans[1]) && (tries[2][j] != ans[2]) && (tries[2][j] != ans[3])) {
-          let k = j + 1;
-          while (k % 4 == j) {
-            if (ans[k] == -1 ) {
-              ans[k] = tries[2][j];
-            }
-          }
-        }
-      }
-    }
-
-
+    tries.push(ans);
     let tempo = new Array();
+
     for (let i = 0; i < 4; ++i) {
-      if (ans[i] != -1) {
-        tempo.push(ans[i]);
+      if ((tries[2][i] != ans[0]) && (tries[2][i] != ans[1]) && (tries[2][i] != ans[2]) && (tries[2][i] != ans[3])) {
+        tempo.push(tries[2][i]);
       }
     }
-
+    console.info("Временное " +tempo);
+    for (let i = 0; i < 4; ++i) {
+      if (ans[i] = -1) {
+        tries[3][i] = tempo.shift();
+      }
+    }
   }
-
-  // Пятая попытка.
-  tries.push(tries[3]);
-  tries[4].unshift(tries[4].pop());
 
   compares.push(compare(tries[3]));
 
   for (let i = 0; i < 4; ++i) {
-    if (compares[4][i] == 2) {
-      ans[i] = tries[4][i];
+    if (compares[3][i] == 2) {
+      ans[i] = tries[3][i];
       bulls_amount++;
     }
   }
+
+  printComputerTry(tries[3]);
+
+  // Пятая попытка.
+  tries.push(ans);
+  let tempo1 = new Array();
+
   for (let i = 0; i < 4; ++i) {
-    if (tries[4][i] == -1) {
-      tries[4][i] = ans[i];
+    if ((tries[3][i] != ans[0]) && (tries[3][i] != ans[1]) && (tries[3][i] != ans[2]) && (tries[3][i] != ans[3])) {
+      tempo1.push(tries[3][i]);
     }
   }
+  console.info(tempo1);
+  for (let i = 0; i < 4; ++i) {
+    if (ans[i] = -1) {
+      ans[i] = tempo1.shift();
+    }
+  }
+
+  compares.push(compare(tries[2]));
+
+  for (let i = 0; i < 4; ++i) {
+    if (compares[2][i] == 2) {
+      ans[i] = tries[2][i];
+      bulls_amount++;
+    }
+  }
+
+  printComputerTry(tries[4]);
 }
 
 function switchCheckBox() {
