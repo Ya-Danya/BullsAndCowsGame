@@ -2,6 +2,7 @@ let bulls;
 
 // На вход подается число - идентификатор быка, коровы или
 // иного числа и элемент в котором мы будем менять содержимое.
+// В папке svgs/ расположены изображения. По умолчанию стоит пустой путь.
 function cowOrBull(code, element) {
   if (code == 1) {
     element.src = "svgs/cow.svg";
@@ -23,21 +24,46 @@ function printAns(arr) {
   cowOrBull(arr[3], document.getElementById('fourth_out'));
 }
 
+function resetOut() {
+  
+  
+  let output_div = document.getElementById('output');
+
+  output_div.innerHTML = `<div class="">
+  <input class="pl-1" placeholder="0" type="number" name="" id="first_num">
+  <image class="pr-1" id="first_out" src="">  </image>
+</div>
+<div class="">
+  <input class="pl-1" placeholder="0" type="number" name="" id="second_num">
+  <image class="pr-1" id="second_out" src="">  </image>
+</div>
+<div class="">
+  <input class="pl-1" placeholder="0" type="number" name="" id="third_num">
+  <image class="pr-1" id="third_out" src="">  </image>
+</div>
+<div class="">
+  <input class="pl-1" placeholder="0" type="number" name="" id="fourth_num">
+  <image class="pr-1" id="fourth_out" src="">  </image>
+</div>`;
+
+}
+
+// Вывод осуществляется с помощью добавления html разметки с переменным содержимым.
 function printComputerTry(number) {
   let output_div = document.getElementById('output');
 
   output_div.insertAdjacentHTML("beforeend",
   `
-  <div class="">
+  <div class="pl-3">
     <div>${number[0]}</div>
   </div>
-  <div class="">
+  <div class="pl-3">
     <div>${number[1]}</div>
   </div>
-  <div class="">
+  <div class="pl-3">
     <div>${number[2]}</div>
   </div>
-  <div class="">
+  <div class="pl-3">
     <div>${number[3]}</div>
   </div>
   `);
@@ -160,7 +186,7 @@ function compare(input_num) {
     }
   }
   chat.textContent = 'Введите число.'
-  console.log(ans);
+  // console.log(ans);
 
   return(ans);
 }
@@ -178,9 +204,30 @@ function humanPlayer() {
   }
 }
 
+const permutator = (inputArr) => {
+  let result = [];
+
+  const permute = (arr, m = []) => {
+    if (arr.length === 0) {
+      result.push(m)
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        let curr = arr.slice();
+        let next = curr.splice(i, 1);
+        permute(curr.slice(), m.concat(next))
+     }
+   }
+ }
+
+ permute(inputArr)
+
+ return result;
+}
+
 // Описание функции, в которой компьютер угадывает загаданное пользователем число
 function bullsNCows () {
   let input = inputNumber();
+  resetOut();
   bulls = input;
   console.info("Загано число " + bulls);
   // Массив в который записываются попытки угадывания.
@@ -197,6 +244,7 @@ function bullsNCows () {
   let cows_amount = 0;
   
   // Первый ход угадывания.
+  console.info("Начало первого хода");
   tries.push([0, 1, 2, 3]);
   compares.push(compare(tries[0]));
 
@@ -212,15 +260,18 @@ function bullsNCows () {
     }
   }
   printComputerTry(tries[0]);
-  console.info("Первая попытка: " + compares[0]);
-  console.info(cows);
+  console.info("Первая попытка: " + tries[0]);
+  console.info("Сравнение: " + compares[0]);
+  console.info("Коровы " + cows);
+  console.info("Ans " + ans);
   if (bulls_amount == 4) {
     console.info(ans);
     return;
   }
-  
+  console.info("конец первого хода");
 
   // Второй ход угадывания.
+  console.info("Начало второго хода");
   tries.push([4,5,6,7]);
   compares.push(compare(tries[1]));
 
@@ -235,24 +286,27 @@ function bullsNCows () {
       cows_amount++;
     }
   }
+
   printComputerTry(tries[1]);
-  console.info("Вторая попытка: " + compares[1]);
-  console.info(cows);
+  console.info("Вторая попытка: " + tries[1]);
+  console.info("Сравнение: " + compares[1]);
+  console.info("Коровы " + cows);
+  console.info("Ans " + ans);
   if (bulls_amount == 4) {
     console.info(ans);
     return;
   }
 
-
+  console.info("Конец второго хода");
 
   // Третяя попытка угадывания.
-  tries.push(ans);
-  console.info("Кол-во коров" + cows_amount);
-  console.info("Кол-во быков" + bulls_amount);
+  console.info("Начало третего хода");
 
+  tries.push(ans.flat());
   
   // Расставляем цифры учитывая, что у нас 2 коровы
   if (cows_amount + bulls_amount == 2) {
+    console.info("sum equals 2");
     for (let i = 0; i < cows_amount; ++i) {
       for (let j = 0; j < 4; ++j) {
         if ((tries[2][j] == -1) && (j != cows[i][1])) {
@@ -276,6 +330,7 @@ function bullsNCows () {
     }
   // Собираем комбинацию для трех коров
   } else if (cows_amount + bulls_amount == 3) {
+    console.info("sum equals 3");
     for (let i = 0; i < cows_amount; ++i) {
       for (let j = 0; j < 4; ++j) {
         if ((tries[2][j] == -1) && (j != cows[i][1])) {
@@ -292,15 +347,47 @@ function bullsNCows () {
       }
     }
   } else if (cows_amount + bulls_amount == 4) {
+    
+
+    let cows_to_permutate = new Array();
     for (let i = 0; i < cows_amount; ++i) {
-      for (let j = 0; j < 4; ++j) {
-        if ((tries[2][j] == -1) && (j != cows[i][1])) {
-          tries[2][j] = cows[i][0];
-          cows[i].push(j);
+      cows_to_permutate.push(cows[i][0]);
+    }
+    for (let i = 0; i < 4; ++i) {
+      if (ans[i] != -1) {
+        cows_to_permutate.push(ans[i]);
+      }
+    }
+
+    let permutates = permutator(cows_to_permutate);
+    console.info(permutates);
+
+    for (let i = 0; i < permutates.length; ++i) {
+      let boolka = true;
+      
+      for (let j = 0; j < cows_amount; ++j) {
+        if (permutates[i][cows[j][1]] == cows[j][0]) {
+          boolka = false;
           break;
         }
       }
+      for (let j = 0; j < 4; ++j) {
+        if (ans[j] != -1) {
+          if (permutates[i][j] != ans[j]) {
+            boolka = false;
+            break;
+          }
+        }
+      }
+      if (boolka) {
+        console.info("boolka");
+        console.info(permutates[i]);
+        tries[2] = permutates[i].flat();
+        
+        break;
+      }
     }
+    
   }
 
   compares.push(compare(tries[2]));
@@ -313,9 +400,12 @@ function bullsNCows () {
   }
 
   printComputerTry(tries[2]);
-  console.info("Третяя попытка: " + compares[2]);
-  console.info(cows);
-  if (bulls_amount == 4) {
+  console.info("Третяя попытка: " + tries[2]);
+  console.info("Сравнение: " + compares[2]);
+  console.info("Коровы" + cows);
+  console.info("Ans" + ans);
+  console.info(bulls_amount);
+  if (bulls_amount > 3) {
     console.info(ans);
     return;
   }
@@ -343,7 +433,7 @@ function bullsNCows () {
       }
     }
   } else {
-    tries.push(ans);
+    tries.push(ans.flat());
     let tempo = new Array();
 
     for (let i = 0; i < 4; ++i) {
@@ -351,9 +441,10 @@ function bullsNCows () {
         tempo.push(tries[2][i]);
       }
     }
+    tempo.push(tempo.shift());
     console.info("Временное " +tempo);
     for (let i = 0; i < 4; ++i) {
-      if (ans[i] = -1) {
+      if (ans[i] == -1) {
         tries[3][i] = tempo.shift();
       }
     }
@@ -369,33 +460,42 @@ function bullsNCows () {
   }
 
   printComputerTry(tries[3]);
+  console.info("Третяя попытка: " + tries[3]);
+  console.info("Сравнение: " + compares[3]);
+  console.info("Коровы" + cows);
+  console.info("Ans" + ans);
+  console.info(bulls_amount);
+  if (bulls_amount > 3) {
+    console.info(ans);
+    return;
+  }
 
   // Пятая попытка.
-  tries.push(ans);
-  let tempo1 = new Array();
+  tries.push(ans.flat());
+    let tempo = new Array();
 
-  for (let i = 0; i < 4; ++i) {
-    if ((tries[3][i] != ans[0]) && (tries[3][i] != ans[1]) && (tries[3][i] != ans[2]) && (tries[3][i] != ans[3])) {
-      tempo1.push(tries[3][i]);
+    for (let i = 0; i < 4; ++i) {
+      if ((tries[3][i] != ans[0]) && (tries[3][i] != ans[1]) && (tries[3][i] != ans[2]) && (tries[3][i] != ans[3])) {
+        tempo.push(tries[3][i]);
+      }
     }
-  }
-  console.info(tempo1);
-  for (let i = 0; i < 4; ++i) {
-    if (ans[i] = -1) {
-      ans[i] = tempo1.shift();
+    tempo.push(tempo.shift());
+    console.info("Временное " +tempo);
+    for (let i = 0; i < 4; ++i) {
+      if (ans[i] == -1) {
+        tries[4][i] = tempo.shift();
+      }
     }
-  }
-
-  compares.push(compare(tries[2]));
-
-  for (let i = 0; i < 4; ++i) {
-    if (compares[2][i] == 2) {
-      ans[i] = tries[2][i];
-      bulls_amount++;
+    printComputerTry(tries[4]);
+    console.info("Третяя попытка: " + tries[4]);
+    console.info("Сравнение: " + compares[4]);
+    console.info("Коровы" + cows);
+    console.info("Ans" + ans);
+    console.info(bulls_amount);
+    if (bulls_amount > 3) {
+      console.info(ans);
+      return;
     }
-  }
-
-  printComputerTry(tries[4]);
 }
 
 function switchCheckBox() {
@@ -408,7 +508,7 @@ function switchCheckBox() {
 }
 
 
-
+// Функция вызываемая при загрузке страницы.
 window.onload = function () {
   bulls = generateNumber();
 
