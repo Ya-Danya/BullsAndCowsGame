@@ -25,8 +25,6 @@ function printAns(arr) {
 }
 
 function resetOut() {
-  
-  
   let output_div = document.getElementById('output');
 
   output_div.innerHTML = `<div class="">
@@ -138,35 +136,58 @@ function humanCompare() {
   return(ans);
 }
 
+function checkDuplicates(arr) {
+  // Сортируем массив по возрастаниюэ
+  
+  arr.sort();
 
+  // Перебираем все элементы массива, начиная со второго
+  for (var i = 1; i < arr.length; i++) {
+    // Если текущий элемент равен предыдущему, значит есть совпадение
+    if (arr[i] === arr[i-1]) {
+      return false;
+    }
+  }
+
+  // Если дошли до этой строки, значит совпадений нет
+  return true;
+}
 
 function inputNumber() {
   let input_num = new Array(4);
 
   let chat = document.getElementById('chat');
 
-  input_num[0] = document.getElementById('first_num').value;
-  if (Number(input_num[0]) < 0 || Number(input_num[0]) > 9) {
-    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+  input_num[0] = Number(document.getElementById('first_num').value);
+  if (input_num[0] < 0 || input_num[0] > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.';
     return;
   }
 
-  input_num[1] = document.getElementById('second_num').value;
-  if (Number(input_num[1]) < 0 || Number(input_num[0]) > 9) {
-    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+  input_num[1] = Number(document.getElementById('second_num').value);
+  if (input_num[1] < 0 || input_num[1] > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.';
     return;
   }
-  input_num[2] = document.getElementById('third_num').value;
-  if (Number(input_num[2]) < 0 || Number(input_num[0]) > 9) {
-    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+  input_num[2] = Number(document.getElementById('third_num').value);
+  if (input_num[2] < 0 || input_num[2] > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.';
     return;
   }
-  input_num[3] = document.getElementById('fourth_num').value;
-  if (Number(input_num[3]) < 0 || Number(input_num[0]) > 9) {
-    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.'
+  input_num[3] = Number(document.getElementById('fourth_num').value);
+  if (input_num[3] < 0 || input_num[3] > 9) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.';
     return;
   }
+  
+  let flag = checkDuplicates(input_num.flat());
+  
 
+  if (!flag) {
+    chat.textContent = 'А ну-ка внимательнее!\n Ввод некорректен.';
+    return;
+  }
+  console.info(input_num);
   return input_num;
 }
 
@@ -185,7 +206,7 @@ function compare(input_num) {
       }
     }
   }
-  chat.textContent = 'Введите число.'
+  chat.textContent = 'Введите число.';
   // console.log(ans);
 
   return(ans);
@@ -292,7 +313,7 @@ function bullsNCows () {
   console.info("Сравнение: " + compares[1]);
   console.info("Коровы " + cows);
   console.info("Ans " + ans);
-  if (bulls_amount == 4) {
+  if (bulls_amount > 3) {
     console.info(ans);
     return;
   }
@@ -347,8 +368,6 @@ function bullsNCows () {
       }
     }
   } else if (cows_amount + bulls_amount == 4) {
-    
-
     let cows_to_permutate = new Array();
     for (let i = 0; i < cows_amount; ++i) {
       cows_to_permutate.push(cows[i][0]);
@@ -387,11 +406,10 @@ function bullsNCows () {
         break;
       }
     }
-    
   }
 
   compares.push(compare(tries[2]));
-
+  bulls_amount = 0;
   for (let i = 0; i < 4; ++i) {
     if (compares[2][i] == 2) {
       ans[i] = tries[2][i];
@@ -413,7 +431,7 @@ function bullsNCows () {
 
   // Формирование 4 попытки я задолбался и хочу спать)
   if (cows_amount + bulls_amount == 3) {
-    tries.push(ans);
+    tries.push(ans.flat());
     let tempo = new Array();
 
     for (let i = 0; i < 4; ++i) {
@@ -452,6 +470,7 @@ function bullsNCows () {
 
   compares.push(compare(tries[3]));
 
+  bulls_amount = 0;
   for (let i = 0; i < 4; ++i) {
     if (compares[3][i] == 2) {
       ans[i] = tries[3][i];
@@ -501,9 +520,15 @@ function bullsNCows () {
 function switchCheckBox() {
   let checkbox = document.getElementById('switcher');
   if (checkbox.checked) {
-    document.getElementById('input_numb').onclick = bullsNCows;
-  } else {
+    resetOut();
     document.getElementById('input_numb').onclick = humanPlayer;
+    document.getElementById('chat').textContent = "Угадайте число, сгенерированное компьютером.";
+    document.getElementById('mode').textContent = "Угадывает игрок.";
+  } else {
+    resetOut();
+    document.getElementById('input_numb').onclick = bullsNCows;
+    document.getElementById('chat').textContent = "Введите число для угадывания.";
+    document.getElementById('mode').textContent = "Угадывает компьютер.";
   }
 }
 
@@ -514,5 +539,5 @@ window.onload = function () {
 
   console.info(bulls);
   document.getElementById('switcher').onclick = switchCheckBox;
-  document.getElementById('input_numb').onclick = humanPlayer;
+  document.getElementById('input_numb').onclick = bullsNCows ;
 };

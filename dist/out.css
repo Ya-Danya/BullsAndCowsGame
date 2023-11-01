@@ -719,16 +719,12 @@ video {
   padding-left: 0.25rem;
 }
 
-.pr-1 {
-  padding-right: 0.25rem;
-}
-
-.pl-2 {
-  padding-left: 0.5rem;
-}
-
 .pl-3 {
   padding-left: 0.75rem;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
 }
 
 .text-2xl {
